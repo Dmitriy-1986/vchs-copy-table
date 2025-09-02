@@ -1,24 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ua">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ВЧС</title>
-<link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="5" cy="5" r="5" fill="%234492f8"/></svg>'>
-
+    <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="5" cy="5" r="5" fill="%234492f8"/></svg>'>
     <style>
         html {
             box-sizing: border-box;
         }
         /* Градиент фона */
         body {
-            
             margin: 0px;
             height: 100vh;
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 591 412"><defs><linearGradient id="gradient_0" x1="0.854" y1="0.146" x2="0.146" y2="0.854"><stop offset="0.000" stop-color="rgb(130,205,224)"/><stop offset="0.167" stop-color="rgb(149,201,222)"/><stop offset="0.333" stop-color="rgb(174,200,216)"/><stop offset="0.500" stop-color="rgb(202,201,208)"/><stop offset="0.667" stop-color="rgb(232,206,199)"/><stop offset="0.833" stop-color="rgb(255,213,194)"/><stop offset="1.000" stop-color="rgb(255,221,192)"/></linearGradient></defs><rect width="100%" height="100%" fill="url(%23gradient_0)"/></svg>') no-repeat center center;
             background-size: cover;
         }
-        
         /* Контейнер */
          .container {
             margin: 0 auto;
@@ -27,7 +24,6 @@
             background-color: rgba(255, 255, 255, 0.24);
             padding: 0 10px;
          }
-
         /* Таблица */
         table {
             font-family: arial, sans-serif;
@@ -45,6 +41,11 @@
         .td-btn {
             width: 110px;
         }
+        /* Поле ввода */
+        .text-input {
+            padding: 10px 5px;
+            width: 98%;
+        }
         /* Градиент кнопки */
         .btn-grad {background-image: linear-gradient(to right, #0575E6 0%, #021B79  51%, #0575E6  100%)}
         .btn-grad {
@@ -59,7 +60,6 @@
             display: block;
             min-width: auto;
         }
-
         .btn-grad:hover {
             background-position: right center; /* change the direction of the change here */
             color: #fff;
@@ -72,7 +72,6 @@
     <div class="container">
         <div class="row">
             <div class="col">
-
                 <table>
                     <tr>
                         <td class="copyable-text">1 копіювати текст</td>
@@ -110,13 +109,20 @@
                             <button class="btn-grad copy-button">Копіювати</button>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <input type="text" id="textInput" class="text-input" placeholder="Введіть текст для копіювання">
+                        </td>
+                        <td class="td-btn">
+                            <button id="copyBtn" class="btn-grad">Копіювати</button>
+                        </td>
+                    </tr>
                 </table>
-
             </div>
         </div>
     </div>
-
-     <script>
+    <script>
+        //Копирование текста из таблицы
         const copyButtons = document.querySelectorAll(".copy-button");
         const copyableTexts = document.querySelectorAll(".copyable-text");
 
@@ -134,8 +140,18 @@
                 document.body.removeChild(tempInput);
             });
         });
-    </script>
-        
-         
+
+        //Копирование текста из поля input
+        const textInput = document.getElementById('textInput');
+        const copyBtnInput = document.getElementById('copyBtn');
+
+        copyBtnInput.addEventListener('click', () => {
+            // Выбираем текст в поле
+            textInput.select();
+            textInput.setSelectionRange(0, 99999); // Для мобильных устройств
+            // Копируем текст
+            navigator.clipboard.writeText(textInput.value)       
+        });
+    </script>       
 </body>
 </html>
